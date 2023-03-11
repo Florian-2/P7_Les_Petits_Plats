@@ -1,13 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Les petits plats</title>
+</head>
+<body>
+	<header>
+		<img src="logo.png" alt="logo" width="300">		
+
+		<div class="search-bar">
+			<input type="text" name="search" class="search-bar__input" placeholder="Rechercher une recette" aria-label="Rechercher une recette" >
+
+			<button class="btn-search">
+				<img src="icons/magnifying-glass.svg" alt="icon en forme de loupe" class="btn-search__icon">
+			</button>
+		</div>
+	</header>
+
+	<main>
+		<section class="tags-section">
+			<div class="tag center">
+				<p class="tag__label">Ananas</p>
+
+				<button class="tag-remove center">
+					<img src="icons/cross.svg" class="tag-remove__icon" alt="Icon en forme de croix">
+				</button>
+			</div>
+		</section>
+
+		<section class="filter-section">
+			<div class="filter filter-ingredients" data-color="blue">
+				<button class="filter-btn">
+					Incrédients
+					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
+				</button>
+			</div>
+
+			<div class="filter filter-appliances" data-color="green">
+				<button class="filter-btn">
+					Appareils
+					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
+				</button>
+			</div>
+
+			<div class="filter filter-utensils" data-color="orange">
+				<button class="filter-btn">
+					Ustensiles
+					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
+				</button>
+			</div>
+		</section>
+
+		<section class="recipes-section">
+			
+		</section>
+	</main>
+
+	<script type="module" src="/src/main.ts"></script>
+</body>
 </html>

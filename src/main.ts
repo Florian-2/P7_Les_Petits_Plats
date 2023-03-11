@@ -1,13 +1,12 @@
 import "./style.css";
-import { Counter } from "./counter";
+import { fetchRecipes } from "./service/recipes.services";
+import { Recipes } from "./Recipes/recipes";
 
-const app = document.querySelector("#app") as HTMLDivElement;
 
-app.innerHTML = `
-    <h1>Vite + TypeScript</h1>
-    <button type="button" id="counter"></button>
-`;
+async function init() {
+    const data = await fetchRecipes();
+    const recipes = new Recipes(data);
+    recipes.createRecipesList();
+}
 
-const btn = document.querySelector("#counter") as HTMLButtonElement;
-
-new Counter(btn);
+init();
