@@ -1,14 +1,12 @@
-import { Recipes } from "../shared/interfaces/recipes";
+import { Recipe } from "../shared/interfaces/recipes";
 
-export async function fetchRecipes(url = "src/data/recipes.json"): Promise<Recipes[]> {
+export async function fetchRecipes(url = "src/data/recipes.json"): Promise<Recipe[]> {
     const res = await fetch(url);
 
     if (!res.ok) {
         throw new Error(`Erreur ${res.status}`);
     }
 
-    const recipes = await res.json() as Recipes[];
-    recipes.sort((a, b) => a.name.localeCompare(b.name));
-
+    const recipes = await res.json() as Recipe[];
     return recipes;
 }

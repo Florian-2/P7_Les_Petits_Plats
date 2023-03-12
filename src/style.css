@@ -29,19 +29,19 @@ ul {
 	list-style-type: none;
 }
 
-/* Classes génériques */
+.not-found {
+	margin-top: 100px;
+	font-size: clamp(20px, 3vw, 30px);
+	text-align: center;
+}
+
 .center {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.icon {
-	width: 15px;
-	height: 100%;
-}
-/* ------ */
-
+/* ----- HEADER ----- */
 header {
 	display: flex;
 	flex-direction: column;
@@ -83,7 +83,7 @@ main {
 	gap: 1.5rem;
 }
 
-/* TAGS */
+/* ----- TAGS ----- */
 .tags-section {
 	margin-top: 2rem;
 	display: flex;
@@ -113,7 +113,7 @@ main {
 	cursor: pointer;
 }
 
-/* FILTRE */
+/* ----- FILTRE ----- */
 .filter-section {
 	display: flex;
 	gap: 2rem;
@@ -153,12 +153,12 @@ main {
 	height: 100%;
 }
 
-/* RECETTE */
+/* ----- RECETTE ----- */
 .recipes-section {
 	margin-top: 1.5rem;
 	display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: calc(3vw + 10px);
+    gap: 25px;
 }
 
 .card-recipe {
@@ -173,6 +173,7 @@ main {
 }
 
 .card-recipe__description {
+	height: 100%;
 	padding: 1.5rem;
 	background-color: #fbfbfb;
 }
@@ -195,16 +196,9 @@ main {
 }
 
 .card-recipe__details {
-	/* display: grid;
+	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: auto; */
-	display: flex;
-	justify-content: space-between;
-}
-
-.recipe-ingredients,
-.card-recipe__instructions {
-	flex: 1;
+	gap: 10px;
 }
 
 .recipe-ingredients__item {

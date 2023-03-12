@@ -1,9 +1,9 @@
-import { Recipes as RecipesI } from '../shared/interfaces/recipes';
+import { Recipe } from '../shared/interfaces/recipes';
 
 
 export class Recipes {
-    constructor(public recipes: RecipesI[]) {
-        this.recipes = recipes;
+    constructor(public recipes: Recipe[]) {
+        this.recipes = recipes.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     createRecipesList() {

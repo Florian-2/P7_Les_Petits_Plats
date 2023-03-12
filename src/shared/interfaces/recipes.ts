@@ -1,15 +1,15 @@
-export interface Recipes {
+export interface Recipe {
     id: string;
     name: string;
     servings: number;
-    ingredients: Ingredients[];
+    ingredients: Ingredient[];
     time: number;
     description: string;
     appliance: string;
     ustensils: string[];
 }
 
-export interface Ingredients {
+export interface Ingredient {
     ingredient: string;
     quantity?: number;
     unit?: string;
