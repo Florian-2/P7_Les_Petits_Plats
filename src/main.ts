@@ -5,14 +5,12 @@ import { SearchRecipes } from "./SearchRecipes/search";
 
 
 async function init() {
-    const searchBar = document.querySelector("input[name='search']") as HTMLInputElement;
-
     const data = await fetchRecipes();
 
     const recipes = new RecipeTemplate(data);
     recipes.createRecipesList();
 
-    const search = new SearchRecipes(data, searchBar);
+    const search = new SearchRecipes(data);
 }
 
 init();

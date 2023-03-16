@@ -12,21 +12,37 @@ export class FilterTemplate {
         this.initEvent();
     }
 
+    initEvent() {
+        const filters: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".filter-btn");
+        const btnClose: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".keywords-search__btn");
+
+        filters.forEach((btn) => btn.addEventListener("click", (e) => {
+            this.close();
+            this.open(e)
+        }));
+
+        btnClose.forEach((btn) => btn.addEventListener("click", () => this.close()));
+    }
+
     private createKeyword(content: string) {
         const li = document.createElement("li");
+        li.addEventListener("click", (e) => console.log(e.target));
         li.classList.add("keywords-list__item");
         li.textContent = content;
+
         return li;
     }
 
     createFilterList() {
         const keywords: Keywords = {
             "appliances": Array.from(this.keywords.appliances).map((appliance) => this.createKeyword(appliance)),
-            "ustensiles": Array.from(this.keywords.utensils).map((utensil) => this.createKeyword(utensil)),
+            "ustensiles": Array.from(this.keywords.ustensiles).map((utensile) => this.createKeyword(utensile)),
             "ingredients": Array.from(this.keywords.ingredients).map((ingredient) => this.createKeyword(ingredient))
         }
 
         const div: NodeListOf<HTMLDivElement> = document.querySelectorAll(".keywords[data-label]");
+        const list = document.querySelectorAll(".keywords-list");
+        list.forEach((l) => l.remove());
 
         div.forEach((el) => {
             const label: string = el.dataset.label || "";
@@ -40,18 +56,6 @@ export class FilterTemplate {
                 }
             }
         })
-    }
-
-    initEvent() {
-        const filters: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".filter-btn");
-        const btnClose: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".keywords-search__btn");
-
-        filters.forEach((btn) => btn.addEventListener("click", (e) => {
-            this.close();
-            this.open(e)
-        }));
-
-        btnClose.forEach((btn) => btn.addEventListener("click", () => this.close()));
     }
 
     open(e: Event) {

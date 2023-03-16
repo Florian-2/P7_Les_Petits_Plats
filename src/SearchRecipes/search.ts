@@ -8,51 +8,62 @@ export class SearchRecipes {
     readonly readKeywords: Keyword;
 
     public resultRecipes: Recipe[];
-    public input: HTMLInputElement;
     public keywords: Keyword;
+    public inputSearch: HTMLInputElement;
+    public inputKeyword: NodeListOf<HTMLInputElement>;
     public tags: Tag[];
 
-    constructor(recipes: Recipe[], inputs: HTMLInputElement) {
+    constructor(recipes: Recipe[]) {
         this.readRecipes = recipes;
         this.resultRecipes = recipes;
-        this.input = inputs;
+        this.inputSearch = document.querySelector("input[name='search']")!;
+        this.inputKeyword = document.querySelectorAll("input.keywords-search__input");
         this.tags = [];
 		this.keywords = {
-            ingredients: new Set(),
-			appliances: new Set(),
-			utensils: new Set()
+            ingredients: [],
+			appliances: [],
+			ustensiles: []
 		};
-		this.filterKeywords();
+		this.formatKeywords();
         this.readKeywords = this.keywords;
         this.initEvent();
     }
 
     private initEvent() {
-        this.input.addEventListener("keyup", () => {
-            if (this.input.value.trim().length >= 3) {
+        this.inputSearch.addEventListener("keyup", () => {
+            if (this.inputSearch.value.trim().length >= 3) {
                 return this.filterRecipes();
             }
 
             new RecipeTemplate(this.readRecipes).createRecipesList();
             new FilterTemplate(this.readKeywords).createFilterList();
         });
+
+        this.inputKeyword.forEach((input) => input.addEventListener("input", (e) => this.filterKeywords(e)));
     }
 
-    resetKeywords() {
+    formatKeywords() {
         this.keywords = {
-            ingredients: new Set(),
-			appliances: new Set(),
-			utensils: new Set()
+            ingredients: [],
+			appliances: [],
+			ustensiles: []
 		};
-    }
-
-    filterKeywords() {
-        this.resetKeywords();
 
 		this.resultRecipes.reduce((acc, recipe) => {
- 			recipe.ingredients.forEach((ingredient) => acc.ingredients.add(ingredient.ingredient));
-			recipe.ustensils.forEach((utensil) => acc.utensils.add(utensil));
-			acc.appliances.add(recipe.appliance);
+ 			recipe.ingredients.forEach((ingredient) => {
+                if (!acc.ingredients.includes(ingredient.ingredient)) {
+                    acc.ingredients.push(ingredient.ingredient)
+                }
+            });
+			recipe.ustensils.forEach((utensil) => {
+                if (!acc.ustensiles.includes(utensil)) {
+                    acc.ustensiles.push(utensil);
+                }
+            });
+
+            if (!acc.appliances.includes(recipe.appliance)) {
+                acc.appliances.push(recipe.appliance);
+            }
 
 			return acc;
 		}, this.keywords);
@@ -60,11 +71,22 @@ export class SearchRecipes {
         new FilterTemplate(this.keywords).createFilterList();
 	}
 
+    filterKeywords(e: Event) {
+        const input = e.target as HTMLInputElement;
+        const inputValue = input.value.toLowerCase();
+        const label = input.name as keyof Keyword;
+
+        this.formatKeywords();
+
+        this.keywords[label] = this.readKeywords[label].filter((keyword) => keyword.toLowerCase().includes(inputValue));
+        new FilterTemplate(this.keywords).createFilterList();
+    }
+
     filterRecipes() {
-        const searchBarValue = this.input.value.toLowerCase();
+        const searchBarValue = this.inputSearch.value.toLowerCase();
         this.resultRecipes = this.readRecipes.filter((recipe) => recipe.name.toLowerCase().includes(searchBarValue));
 
-        this.filterKeywords();
+        this.formatKeywords();
 
         if (!this.resultRecipes.length) {
             return this.notFound();

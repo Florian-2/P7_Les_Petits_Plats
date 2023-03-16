@@ -15,11 +15,9 @@ interface Ingredient {
     unit?: string;
 }
 
-export interface Keyword {
-	ingredients: Set<string>;
-	appliances: Set<string>;
-	utensils: Set<string>;
-}
+export type Keyword = {
+    [key in "ingredients" | "appliances" | "ustensiles"]: string[]
+};
 
 export interface Tag {
     value: string;
