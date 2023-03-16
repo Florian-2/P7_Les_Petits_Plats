@@ -1,7 +1,7 @@
-import { Recipe } from '../shared/interfaces/recipes';
+import { Recipe } from '../shared/interfaces';
 
 
-export class Recipes {
+export class RecipeTemplate {
     constructor(public recipes: Recipe[]) {
         this.recipes = recipes.sort((a, b) => a.name.localeCompare(b.name));
     }
@@ -40,6 +40,6 @@ export class Recipes {
         `);
 
         const section = document.querySelector(".recipes-section") as HTMLElement;
-        section.innerHTML = list.join('');
+        section.innerHTML = list.join("");
     }
 }

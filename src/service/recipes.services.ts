@@ -1,4 +1,4 @@
-import { Recipe } from "../shared/interfaces/recipes";
+import { Recipe } from "../shared/interfaces";
 
 export async function fetchRecipes(url = "src/data/recipes.json"): Promise<Recipe[]> {
     const res = await fetch(url);

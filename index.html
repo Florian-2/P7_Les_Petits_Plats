@@ -8,7 +8,7 @@
 </head>
 <body>
 	<header>
-		<img src="logo.png" alt="logo" width="300">		
+		<img src="logo.png" alt="logo" width="300">
 
 		<div class="search-bar">
 			<input type="text" name="search" class="search-bar__input" placeholder="Rechercher une recette" aria-label="Rechercher une recette" >
@@ -31,25 +31,55 @@
 		</section>
 
 		<section class="filter-section">
-			<div class="filter filter-ingredients" data-color="blue">
+			<div class="filter filter-ingredients">
 				<button class="filter-btn">
-					Incrédients
+					Ingredients
 					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
 				</button>
+
+				<div class="keywords" data-label="ingredients">
+					<div class="keywords-search">
+						<input type="text" placeholder="Rechercher un ingrédient" class="keywords-search__input">
+
+						<button class="keywords-search__btn">
+							<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le haut" class="keywords-search__icon">
+						</button>
+					</div>
+				</div>
 			</div>
 
-			<div class="filter filter-appliances" data-color="green">
+			<div class="filter filter-appliances">
 				<button class="filter-btn">
 					Appareils
 					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
 				</button>
+
+				<div class="keywords" data-label="appliances">
+					<div class="keywords-search">
+						<input type="text" placeholder="Rechercher un appareil" class="keywords-search__input">
+
+						<button class="keywords-search__btn">
+							<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le haut" class="keywords-search__icon">
+						</button>
+					</div>
+				</div>
 			</div>
 
-			<div class="filter filter-utensils" data-color="orange">
+			<div class="filter filter-utensils">
 				<button class="filter-btn">
 					Ustensiles
 					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
 				</button>
+
+				<div class="keywords" data-label="ustensiles">
+					<div class="keywords-search">
+						<input type="text" placeholder="Rechercher un ustensile" class="keywords-search__input">
+
+						<button class="keywords-search__btn">
+							<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le haut" class="keywords-search__icon">
+						</button>
+					</div>
+				</div>
 			</div>
 		</section>
 

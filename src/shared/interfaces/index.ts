@@ -9,8 +9,19 @@ export interface Recipe {
     ustensils: string[];
 }
 
-export interface Ingredient {
+interface Ingredient {
     ingredient: string;
     quantity?: number;
     unit?: string;
+}
+
+export interface Keyword {
+	ingredients: Set<string>;
+	appliances: Set<string>;
+	utensils: Set<string>;
+}
+
+export interface Tag {
+    value: string;
+    category: string;
 }
