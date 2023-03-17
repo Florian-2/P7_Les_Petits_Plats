@@ -122,9 +122,12 @@ main {
 }
 
 .filter {
-	background-color: var(--color-ingredient);
-	border-radius: var(--raduis);
 	box-shadow: 0 0 20px 2px #e1e1e1;
+	border-radius: var(--raduis);
+}
+.filter-active {
+	border-radius: var(--raduis) var(--raduis) 0 0;
+	min-width: 500px;
 }
 
 .filter-ingredients {
@@ -161,6 +164,7 @@ main {
 
 .keywords {
 	display: none;
+	position: relative;
 }
 .keywords-active {
 	display: block;
@@ -184,7 +188,7 @@ main {
 }
 .keywords-search__input::placeholder {
 	font-size: 1.6rem;
-	color: rgb(218, 218, 218);
+	color: rgba(255, 255, 255, 0.8);
 }
 .keywords-search__btn {
 	cursor: pointer;
@@ -198,6 +202,10 @@ main {
 }
 
 .keywords-list {
+	position: absolute;
+	width: 100%;
+	border-radius: 0 0 var(--raduis) var(--raduis);
+
 	padding: 1.5rem;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
