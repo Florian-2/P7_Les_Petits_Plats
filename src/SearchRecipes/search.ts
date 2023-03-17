@@ -1,6 +1,7 @@
 import { RecipeTemplate } from '../Templates/recipes';
 import { Keyword, Recipe, Tag } from '../shared/interfaces';
 import { FilterTemplate } from '../Templates/filter';
+import { Tags } from '../Templates/tag';
 
 
 export class SearchRecipes {
@@ -27,6 +28,7 @@ export class SearchRecipes {
 		this.formatKeywords();
         this.readKeywords = this.keywords;
         this.initEvent();
+        this.tagEvent();
     }
 
     private initEvent() {
@@ -94,6 +96,41 @@ export class SearchRecipes {
 
         new RecipeTemplate(this.resultRecipes).createRecipesList();
         new FilterTemplate(this.keywords).createFilterList();
+    }
+
+    tagEvent() {
+        const li = document.querySelectorAll(".keywords-list");
+        li.forEach((el) => el.addEventListener("click", (e) => this.addTag(e.target as HTMLLIElement)));
+    }
+
+    addTag(li: HTMLLIElement) {
+        const parent = li.parentElement as HTMLUListElement;
+        const category = parent.dataset.label;
+        const value = li.textContent;
+
+        if (category && value) {
+            this.tags.push({ id: crypto.randomUUID() ,category, value });
+        }
+        new Tags().createTagsList(this.tags);
+
+        const tagsElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".tag button");
+        console.log(tagsElements);
+
+        tagsElements.forEach((tag) => {
+            tag.addEventListener("click", () => {
+                if (tag.dataset.id) {
+                    console.log(tag.dataset.id);
+                    this.removeTag(tag.dataset.id);
+                }
+            })
+        });
+    }
+
+    removeTag(id: string) {
+        const index = this.tags.findIndex((tag) => tag.id === id);
+        this.tags.splice(index, 1);
+
+        new Tags().createTagsList(this.tags);
     }
 
     notFound() {

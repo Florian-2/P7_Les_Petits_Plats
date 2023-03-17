@@ -20,6 +20,7 @@ export type Keyword = {
 };
 
 export interface Tag {
+    id: string;
     value: string;
     category: string;
 }

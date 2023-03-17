@@ -32,7 +32,6 @@ export class FilterTemplate {
 
     private createKeyword(content: string) {
         const li = document.createElement("li");
-        li.addEventListener("click", (e) => console.log(e.target));
         li.classList.add("keywords-list__item");
         li.textContent = content;
 
@@ -59,6 +58,7 @@ export class FilterTemplate {
                     ul.classList.add("keywords-list");
                     const color = label as keyof typeof Colors;
                     ul.style.setProperty("background-color", Colors[color]);
+                    ul.setAttribute("data-label", label);
 
                     ul.append(...keywords[label]);
                     el.append(ul);
