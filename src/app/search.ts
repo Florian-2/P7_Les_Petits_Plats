@@ -27,10 +27,10 @@ export class SearchRecipes {
         this.recipesInstance.createRecipesList();
         this.searchBarEvent();
         this.filterEvent();
+    }
 
-        this.ingredientsInstance.createKeywordsList(this.recipesInstance.ingredientsList);
-        this.appliancesInstance.createKeywordsList(this.recipesInstance.appliancesList);
-        this.ustensilsInstance.createKeywordsList(this.recipesInstance.ustensilsList);
+    render(recipes: TypeRecipe[]) {
+        this.recipesInstance.createRecipesList(recipes);
     }
 
     private searchBarEvent() {

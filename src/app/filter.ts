@@ -9,6 +9,7 @@ export class Filter {
     public filterEl: HTMLDivElement;
     public filterButtonEl: HTMLButtonElement;
     public filterInuputEl: HTMLInputElement;
+    public noResultEl: HTMLParagraphElement;
 
     constructor(data: string[], options: Option) {
         this.keywordsList = data;
@@ -17,6 +18,7 @@ export class Filter {
         this.filterEl = document.querySelector(`.filter[data-label="${options.label[0]}"]`)!;
         this.filterButtonEl = this.filterEl.querySelector(".filter-search__btn")!;
         this.filterInuputEl = this.filterEl.querySelector(".filter-search__input")!;
+        this.noResultEl = this.noResult();
 
         this.expandFilter = this.expandFilter.bind(this);
         this.openFilter = this.openFilter.bind(this);
@@ -56,13 +58,29 @@ export class Filter {
 
     searchKeyWords(e: Event) {
         const input = e.target as HTMLInputElement;
-        const result = this.keywordsList.filter((keyword) => formatStr(keyword).includes(formatStr(input.value)));
+        const list = input.closest(".filter")?.querySelectorAll<HTMLLIElement>(".filter-list__item");
+        const result = [];
 
-        // if (result.length === 0) {
-            // Aucun résultat
-        // }
+        if (!list) return;
 
-        return result;
+        list.forEach((li) => {
+            // Si le mot recherché fait partie de la liste on l'affiche (display: block) sinon on le cache (display: none)
+            if (formatStr(li.textContent || "").includes(formatStr(input.value))) {
+                li.style.setProperty("display", "block");
+                result.push(li);
+            }
+            else {
+                li.style.setProperty("display", "none");
+            }
+        });
+
+        // Affiche un message s'il n'y a aucun résultat pour le mot recherché
+        if (result.length === 0) {
+            this.filterEl.append(this.noResultEl);
+        }
+        else {
+            this.noResultEl.remove();
+        }
     }
 
     expandFilter(e: Event) {
