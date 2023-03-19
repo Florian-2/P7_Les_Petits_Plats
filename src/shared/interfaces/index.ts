@@ -1,4 +1,4 @@
-export interface Recipe {
+export interface TypeRecipe {
     id: string;
     name: string;
     servings: number;
@@ -9,7 +9,7 @@ export interface Recipe {
     ustensils: string[];
 }
 
-interface Ingredient {
+export interface Ingredient {
     ingredient: string;
     quantity?: number;
     unit?: string;
@@ -19,8 +19,9 @@ export type Keyword = {
     [key in "ingredients" | "appliances" | "ustensiles"]: string[]
 };
 
-export interface Tag {
+export interface TypeTag {
     id: string;
     value: string;
     category: string;
+    color: string;
 }

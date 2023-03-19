@@ -25,60 +25,52 @@
 		</section>
 
 		<section class="filter-section">
-			<div class="filter filter-ingredients">
-				<button class="filter-btn">
-					Ingredients
-					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
-				</button>
+			<div class="filter filter-ingredients" data-label="ingredients">
+				<div class="filter-search">
+					<input type="text" name="ingredients" placeholder="Ingrédients" class="filter-search__input">
 
-				<div class="keywords" data-label="ingredients">
-					<div class="keywords-search">
-						<input type="text" name="ingredients" placeholder="Rechercher un ingrédient" class="keywords-search__input">
-
-						<button class="keywords-search__btn">
-							<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le haut" class="keywords-search__icon">
-						</button>
-					</div>
+					<button class="filter-search__btn" data-label="ustensils">
+						<img src="icons/chevron-down.svg" alt="Chevron" class="icon">
+					</button>
 				</div>
+
 			</div>
 
-			<div class="filter filter-appliances">
-				<button class="filter-btn">
-					Appareils
-					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
-				</button>
+			<div class="filter filter-appliances" data-label="appliances">
+				<div class="filter-search">
+					<input type="text" placeholder="Appareils" class="filter-search__input">
 
-				<div class="keywords" data-label="appliances">
-					<div class="keywords-search">
-						<input type="text" name="appliances" placeholder="Rechercher un appareil" class="keywords-search__input">
-
-						<button class="keywords-search__btn">
-							<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le haut" class="keywords-search__icon">
-						</button>
-					</div>
+					<button class="filter-search__btn" data-label="ustensils">
+						<img src="icons/chevron-down.svg" name="appliances" alt="Chevron" class="icon">
+					</button>
 				</div>
+
 			</div>
 
-			<div class="filter filter-utensils">
-				<button class="filter-btn">
-					Ustensiles
-					<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le bas" class="filter-btn__icon">
-				</button>
+			<div class="filter filter-ustensils" data-label="ustensils">
+				<div class="filter-search">
+					<input type="text" name="ustensils" placeholder="Ustensiles" class="filter-search__input">
 
-				<div class="keywords" data-label="ustensiles">
-					<div class="keywords-search">
-						<input type="text" name="ustensiles" placeholder="Rechercher un ustensile" class="keywords-search__input">
-
-						<button class="keywords-search__btn">
-							<img src="icons/chevron-down.svg" alt="Chevron qui pointe vers le haut" class="keywords-search__icon">
-						</button>
-					</div>
+					<button class="filter-search__btn" data-label="ustensils">
+						<img src="icons/chevron-down.svg" alt="Chevron" class="icon">
+					</button>
 				</div>
+
 			</div>
 		</section>
 
 		<section class="recipes-section"></section>
 	</main>
+
+	<template class="template-tag">
+		<div class="tag center">
+			<p class="tag__label"></p>
+
+			<button class="tag-remove center" data-id="${tag.id}">
+				<img src="icons/cross.svg" class="tag-remove__icon" alt="Icon en forme de croix">
+			</button>
+		</div>
+	</template>
 
 	<script type="module" src="/src/main.ts"></script>
 </body>
