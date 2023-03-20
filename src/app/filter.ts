@@ -9,7 +9,7 @@ export class Filter {
     public filterEl: HTMLDivElement;
     public filterButtonEl: HTMLButtonElement;
     public filterInuputEl: HTMLInputElement;
-    public noResultEl: HTMLParagraphElement | null;
+    public noResultEl: HTMLParagraphElement;
 
     constructor(data: string[], options: Option) {
         this.keywordsList = data;
@@ -66,6 +66,7 @@ export class Filter {
         list.forEach((li) => {
             // Si le mot recherché fait partie de la liste on l'affiche (display: block) sinon on le cache (display: none)
             if (formatStr(li.textContent || "").includes(formatStr(input.value))) {
+                console.log(formatStr(li.textContent || ""));
                 li.style.setProperty("display", "block");
                 result.push(li);
             }
@@ -75,11 +76,11 @@ export class Filter {
         });
 
         // Affiche un message s'il n'y a aucun résultat pour le mot recherché
-        if (result.length === 0 && this.noResultEl) {
+        if (result.length === 0) {
             this.filterEl.append(this.noResultEl);
         }
         else {
-            this.noResultEl?.remove();
+            this.noResultEl.remove();
         }
     }
 
@@ -105,7 +106,7 @@ export class Filter {
         this.filterInuputEl.value = "";
         this.filterInuputEl.placeholder = capitalize(this.options.label[1]);
         this.filterEl.classList.remove("filter-active");
-        this.noResultEl?.remove();
+        this.noResultEl.remove();
         this.filterEl.querySelectorAll<HTMLLIElement>(".filter-list__item").forEach((li) => li.style.setProperty("display", "block"));
     }
 
