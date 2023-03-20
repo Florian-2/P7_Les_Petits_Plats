@@ -53,6 +53,10 @@ header {
 	margin-top: 2.5rem;
 	display: flex;
 	width: 100%;
+	border-radius: var(--raduis);
+}
+.search-bar:focus-within {
+	border: 2px solid black;
 }
 
 .search-bar__input {
@@ -63,6 +67,7 @@ header {
 	background-color: var(--color-gray);
 	border-radius: var(--raduis) 0 0 var(--raduis);
 	border: none;
+	outline: none;
 }
 
 .btn-search {
@@ -160,11 +165,13 @@ main {
 	align-items: center;
 	justify-content: space-between;
 }
+
 .filter-search__input {
 	width: 100%;
 	padding: 1.5rem;
 	background-color: transparent;
 	border: 0;
+	outline: none;
 	pointer-events: none;
 }
 .filter-search__input,
@@ -189,14 +196,12 @@ main {
 	max-height: 0;
 	overflow-y: auto;
 	visibility: hidden;
-    opacity: 0;
-    transition: opacity 250ms, visibility 250ms, max-height 250ms;
+    transition: max-height 250ms;
 }
 .filter-active .filter-list {
 	max-height: 250px;
 	padding: 1.5rem;
 	visibility: visible;
-	opacity: 1;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 0.5rem;
