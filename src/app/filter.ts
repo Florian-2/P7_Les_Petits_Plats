@@ -9,7 +9,7 @@ export class Filter {
     public filterEl: HTMLDivElement;
     public filterButtonEl: HTMLButtonElement;
     public filterInuputEl: HTMLInputElement;
-    public noResultEl: HTMLParagraphElement;
+    public noResultEl: HTMLParagraphElement | null;
 
     constructor(data: string[], options: Option) {
         this.keywordsList = data;
@@ -75,11 +75,11 @@ export class Filter {
         });
 
         // Affiche un message s'il n'y a aucun résultat pour le mot recherché
-        if (result.length === 0) {
+        if (result.length === 0 && this.noResultEl) {
             this.filterEl.append(this.noResultEl);
         }
         else {
-            this.noResultEl.remove();
+            this.noResultEl?.remove();
         }
     }
 
@@ -105,6 +105,8 @@ export class Filter {
         this.filterInuputEl.value = "";
         this.filterInuputEl.placeholder = capitalize(this.options.label[1]);
         this.filterEl.classList.remove("filter-active");
+        this.noResultEl?.remove();
+        this.filterEl.querySelectorAll<HTMLLIElement>(".filter-list__item").forEach((li) => li.style.setProperty("display", "block"));
     }
 
     noResult(): HTMLParagraphElement {
