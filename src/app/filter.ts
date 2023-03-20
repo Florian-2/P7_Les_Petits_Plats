@@ -64,9 +64,8 @@ export class Filter {
         if (!list) return;
 
         list.forEach((li) => {
-            // Si le mot recherché fait partie de la liste on l'affiche (display: block) sinon on le cache (display: none)
+            // Si le mot recherché fait partie de la liste, on l'affiche (display: block). Sinon on le cache (display: none)
             if (formatStr(li.textContent || "").includes(formatStr(input.value))) {
-                console.log(formatStr(li.textContent || ""));
                 li.style.setProperty("display", "block");
                 result.push(li);
             }

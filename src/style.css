@@ -116,10 +116,21 @@ main {
 
 /* ----- FILTRE ----- */
 .filter-section {
-	height: 60px;
+	height: 70px;
 	display: flex;
 	align-items: start;
 	gap: 2rem;
+}
+@media screen and (max-width: 680px) {
+	.filter-section {
+		height: auto;
+		flex-wrap: wrap;
+	}
+
+	.filter {
+		min-width: 100%;
+		/* flex-grow: 1; */
+	}
 }
 
 .filter {
@@ -217,8 +228,18 @@ main {
 .recipes-section {
 	margin-top: 1.5rem;
 	display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
     gap: 25px;
+}
+@media screen and (max-width: 1000px) {
+	.recipes-section {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+@media screen and (max-width: 700px) {
+	.recipes-section {
+		grid-template-columns: 1fr;
+	}
 }
 
 .card-recipe {
