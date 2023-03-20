@@ -1,4 +1,4 @@
-import { formatStr, capitalize } from "../utils/format";
+import { formatStr, capitalize } from "./utils/format";
 
 type Option = { label: [string, string], color: string };
 

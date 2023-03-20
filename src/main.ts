@@ -1,5 +1,5 @@
 import "./style.css";
-import { fetchRecipes } from "./service/recipes.services";
+import { fetchRecipes } from "./app/service/recipes.services";
 import { SearchRecipes } from "./app/search";
 
 
