@@ -31,6 +31,7 @@ ul {
 }
 
 .not-found {
+	grid-column: 1 / 4;
 	margin-top: 100px;
 	font-size: clamp(20px, 3vw, 30px);
 	text-align: center;
@@ -140,7 +141,6 @@ main {
 .filter {
 	width: 200px;
 	position: relative;
-	padding-block: 1rem;
 	box-shadow: 0 0 20px 2px #e1e1e1;
 	border-radius: var(--raduis);
 	box-shadow: 0px 2px 10px rgba(0,0,0,.30);
@@ -181,22 +181,26 @@ main {
 }
 
 .filter-search__btn {
-	padding: 1rem;
+	padding: 2rem;
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
 }
 .filter-search__btn .icon {
-	width: 16px;
+	width: 19px;
 	height: 100%;
 	pointer-events: none;
+	transition: transform 250ms;
+}
+.filter-active .filter-search__btn .icon {
+	transform: rotate(180deg);
 }
 
 .filter-list {
 	max-height: 0;
 	overflow-y: auto;
 	visibility: hidden;
-    transition: max-height 250ms;
+    transition: max-height 250ms ease-out;
 }
 .filter-active .filter-list {
 	max-height: 250px;

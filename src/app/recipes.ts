@@ -13,10 +13,10 @@ export class Recipes {
         this.appliancesList = [];
         this.ustensilsList = [];
 
-        this.initObject();
+        this.initKeywordsList();
     }
 
-    initObject() {
+    initKeywordsList() {
         this.recipesList.forEach((recipe) => {
             this.ingredientsList.push(...recipe.ingredients.map((ing) => ing.ingredient));
             this.ustensilsList.push(...recipe.ustensils);

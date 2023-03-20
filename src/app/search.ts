@@ -11,14 +11,23 @@ export class SearchRecipes {
     public ingredientsInstance: Filter;
     public appliancesInstance: Filter;
     public ustensilsInstance: Filter;
-    public inputSearch: HTMLInputElement;
+    private inputSearch: HTMLInputElement;
 
     constructor(recipes: TypeRecipe[]) {
-        this.tagsInstance = new Tag();
         this.recipesInstance = new Recipes(recipes);
-        this.ingredientsInstance = new Filter(this.recipesInstance.ingredientsList, { label: ["ingredients", "ingrédient"], color: "#3282f7"});
-        this.appliancesInstance = new Filter(this.recipesInstance.appliancesList, { label: ["appliances", "appareil"], color: "#68d9a4" });
-        this.ustensilsInstance = new Filter(this.recipesInstance.ustensilsList, { label: ["ustensils", "ustensile"], color: "#ed6454" });
+        this.tagsInstance = new Tag();
+        this.ingredientsInstance = new Filter(this.recipesInstance.ingredientsList, {
+            label: ["ingredients", "ingrédient"],
+            color: "#3282f7" 
+        });
+        this.appliancesInstance = new Filter(this.recipesInstance.appliancesList, {
+            label: ["appliances", "appareil"],
+            color: "#68d9a4" 
+        });
+        this.ustensilsInstance = new Filter(this.recipesInstance.ustensilsList, { 
+            label: ["ustensils", "ustensile"], 
+            color: "#ed6454" 
+        });
 
         this.inputSearch = document.querySelector("input[name='search']")!;
     }
@@ -29,9 +38,9 @@ export class SearchRecipes {
         this.filterEvent();
     }
 
-    render(recipes: TypeRecipe[]) {
-        this.recipesInstance.createRecipesList(recipes);
-    }
+    // render(recipes: TypeRecipe[]) {
+    //     this.recipesInstance.createRecipesList(recipes);
+    // }
 
     private searchBarEvent() {
         this.inputSearch.addEventListener("keyup", () => {
