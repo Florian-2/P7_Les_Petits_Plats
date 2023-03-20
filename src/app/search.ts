@@ -1,5 +1,5 @@
 import { Recipes } from './recipes';
-import { TypeRecipe } from '../shared/interfaces';
+import { TypeRecipe } from './shared/interfaces';
 import { formatStr } from './utils/format';
 import { Tag } from './tag';
 import { Filter } from './filter';

@@ -1,4 +1,4 @@
-import { TypeTag } from '../shared/interfaces';
+import { TypeTag } from './shared/interfaces';
 
 
 enum Colors {

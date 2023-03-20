@@ -1,4 +1,4 @@
-import { TypeRecipe } from '../shared/interfaces';
+import { TypeRecipe } from './shared/interfaces';
 
 
 export class Recipes {
