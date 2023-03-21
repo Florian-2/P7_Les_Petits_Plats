@@ -38,18 +38,14 @@ export class SearchRecipes {
         this.filterEvent();
     }
 
-    // render(recipes: TypeRecipe[]) {
-    //     this.recipesInstance.createRecipesList(recipes);
-    // }
+    render(recipes: TypeRecipe[]) {
+        this.recipesInstance.createRecipesList(recipes);
+        const keywords = this.recipesInstance.initKeywordsList(recipes);
+        this.updateKeywordsList(keywords);
+    }
 
     private searchBarEvent() {
-        this.inputSearch.addEventListener("keyup", () => {
-            if (this.inputSearch.value.trim().length >= 3) {
-                return this.search();
-            }
-
-            this.recipesInstance.createRecipesList();
-        });
+        this.inputSearch.addEventListener("input", () => this.search());
     }
 
     filterEvent() {
@@ -70,19 +66,25 @@ export class SearchRecipes {
 		});
     }
 
+    updateKeywordsList(recipes: { ingredients: string[], appliances: string[], ustensils: string[] }) {
+        this.ingredientsInstance.createKeywordsList(recipes.ingredients);
+        this.appliancesInstance.createKeywordsList(recipes.appliances);
+        this.ustensilsInstance.createKeywordsList(recipes.ustensils);
+    }
+
     search() {
         let result: TypeRecipe[] = [];
         const inputValue = formatStr(this.inputSearch.value);
 
-        result.push(...this.searchTitle(inputValue));
-        result.push(...this.searchDescription(inputValue));
-        result = Array.from(new Set(result)); // Suppression des doublons
-
-        if (result.length === 0) {
-            return this.recipesInstance.noResult();
+        if (inputValue.length >= 3) {
+            result.push(...this.searchTitle(inputValue));
+            result.push(...this.searchDescription(inputValue));
+        }
+        else {
+            result = this.recipesInstance.recipesList;
         }
 
-        this.recipesInstance.createRecipesList(result);
+        this.render(result);
     }
 
     searchTitle(searchBarValue: string): TypeRecipe[] {

@@ -37,7 +37,7 @@ export class Filter {
      * Ajoute un événement "keyup" sur les 3 inputs pour permettre la recherche d'ingrédients, d'appareils et d'ustensiles
      */
     searchBarEvent() {
-        this.filterInuputEl.addEventListener("keyup", this.searchKeyWords);
+        this.filterInuputEl.addEventListener("input", this.searchKeyWords);
     }
 
     createKeywordsList(list: string[]) {
@@ -47,7 +47,13 @@ export class Filter {
         ul.classList.add("filter-list");
 
         const listLi = list.map((keyword) => `<li class="filter-list__item" data-color="${this.options.color}">${keyword}</li>`);
-        ul.innerHTML = listLi.join("");
+
+        if (listLi.length === 0) {
+            ul.append(this.noResultEl);
+        }
+        else {
+            ul.innerHTML = listLi.join("");
+        }
 
         // Suppression des listes de mots clés déjà présente dans le DOM
         const oldList = this.filterEl.querySelector("ul");

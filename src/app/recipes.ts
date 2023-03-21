@@ -6,18 +6,24 @@ export class Recipes {
     public ingredientsList: string[];
     public appliancesList: string[];
     public ustensilsList: string[];
+    public noResultEl: HTMLHeadingElement;
 
     constructor(recipesList: TypeRecipe[]) {
         this.recipesList = recipesList.sort((a, b) => a.name.localeCompare(b.name));
         this.ingredientsList = [];
         this.appliancesList = [];
         this.ustensilsList = [];
+        this.noResultEl = this.noResult();
 
         this.initKeywordsList();
     }
 
-    initKeywordsList() {
-        this.recipesList.forEach((recipe) => {
+    initKeywordsList(recipes?: TypeRecipe[]) {
+        this.ingredientsList = [];
+        this.appliancesList = [];
+        this.ustensilsList = [];
+
+        (recipes ?? this.recipesList).forEach((recipe) => {
             this.ingredientsList.push(...recipe.ingredients.map((ing) => ing.ingredient));
             this.ustensilsList.push(...recipe.ustensils);
             this.appliancesList.push(recipe.appliance);
@@ -27,12 +33,24 @@ export class Recipes {
         this.ingredientsList = [...new Set(this.ingredientsList)];
         this.appliancesList = [...new Set(this.appliancesList)];
         this.ustensilsList = [...new Set(this.ustensilsList)];
+
+        return {
+            ingredients: this.ingredientsList,
+            appliances: this.appliancesList,
+            ustensils: this.ustensilsList
+        }
     }
 
     createRecipesList(recipes = this.recipesList) {
         const list = recipes.map((recipe) => this.createRecipe(recipe));
 
         const section = document.querySelector(".recipes-section") as HTMLElement;
+
+        if (list.length === 0) {
+            section.innerHTML = "";
+            return section.append(this.noResultEl);
+        }
+
         section.innerHTML = list.join("");
     }
 
@@ -72,12 +90,10 @@ export class Recipes {
     }
 
     noResult() {
-        const section = document.querySelector(".recipes-section") as HTMLElement;
+        const h2 = document.createElement("h2");
+        h2.classList.add("not-found");
+        h2.textContent = "Aucune recette ne correspond à vos critères...";
 
-        const h1 = document.createElement("h1");
-        h1.classList.add("not-found");
-        h1.textContent = "Aucune recette ne correspond à vos critères...";
-        section.innerHTML = "";
-        section.appendChild(h1);
+        return h2;
     }
 }

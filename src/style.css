@@ -227,7 +227,7 @@ main {
 }
 
 .no-result {
-	margin-left: 1.5rem;
+	margin: 0 1.5rem 1.5rem 1.5rem;
 	font-size: 1.6rem;
 	color: rgba(255, 255, 255, 0.80);
 }
@@ -237,7 +237,7 @@ main {
 	margin-top: 1.5rem;
 	display: grid;
     grid-template-columns: repeat(3, minmax(300px, 1fr));
-    gap: 25px;
+    gap: 30px;
 }
 @media screen and (max-width: 1000px) {
 	.recipes-section {
