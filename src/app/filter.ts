@@ -46,7 +46,7 @@ export class Filter {
         const ul = document.createElement("ul");
         ul.classList.add("filter-list");
 
-        const listLi = list.map((keyword) => `<li class="filter-list__item" data-color="${this.options.color}">${keyword}</li>`);
+        const listLi = list.map((keyword) => `<li class="filter-list__item" data-label="${this.options.label[0]}" data-color="${this.options.color}">${keyword}</li>`);
 
         if (listLi.length === 0) {
             ul.append(this.noResultEl);

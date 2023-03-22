@@ -8,7 +8,7 @@ enum Colors {
 }
 
 export class Tag {
-    private tags: TypeTag[];
+    public tags: TypeTag[];
     private sectionTag: HTMLElement;
 
     constructor() {
@@ -19,17 +19,18 @@ export class Tag {
         this.removeTag = this.removeTag.bind(this);
     }
 
-    addTag(li: HTMLLIElement) {
-        const parent = li.parentElement as HTMLUListElement;
-        const category = parent.dataset.label || "";
+    addTag(li: HTMLLIElement): HTMLDivElement {
+        const category = li.dataset.label || "";
         const value = li.textContent || "";
-        const color = category as keyof typeof Colors;
+        const color = li.dataset.color || "" as keyof typeof Colors;
         const tag = { id: crypto.randomUUID(), value, category, color };
 
         this.tags.push(tag);
 
         const tagHtml = this.createTagHTML(tag);
-        this.sectionTag.append(tagHtml);
+        this.sectionTag.insertAdjacentHTML("beforeend", tagHtml);
+
+        return this.sectionTag.lastElementChild as HTMLDivElement;
     }
 
     removeTag(id: string) {
@@ -40,19 +41,16 @@ export class Tag {
         tagHtml && tagHtml.remove();
     }
 
-    createTagHTML(tag: TypeTag): DocumentFragment {
-        const template = document.getElementById("template-tag") as HTMLTemplateElement;
-        const el = document.importNode(template.content, true);
+    createTagHTML(tag: TypeTag): string {
+        const el = `
+            <div class="tag center" style="background-color: ${tag.color}">
+                <p class="tag__label">${tag.value}</p>
 
-        const [div, p, button] = [
-            document.querySelector("div")!,
-            document.querySelector("p")!,
-            document.querySelector("button")!
-        ];
-
-        div.style.setProperty("background-color", tag.color);
-        p.textContent = tag.value;
-        button.setAttribute("data-id", tag.id);
+                <button class="tag-remove center" data-id="${tag.id}">
+                    <img src="icons/cross.svg" class="tag-remove__icon" alt="Icon en forme de croix">
+                </button>
+            </div>
+        `;
 
         return el;
     }

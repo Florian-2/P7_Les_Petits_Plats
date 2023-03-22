@@ -103,6 +103,7 @@ main {
 	gap: 10px;
 	border-radius: var(--raduis);
 	box-shadow: 0 0 20px 2px #e1e1e1;
+	animation: FadeIn 250ms;
 }
 
 .tag__label {
@@ -113,11 +114,23 @@ main {
 .tag-remove {
 	background: transparent;
 	border: 0;
+	cursor: pointer;
 }
 
 .tag-remove__icon {
 	width: 17px;
 	cursor: pointer;
+	pointer-events: none;
+}
+
+@keyframes FadeIn {
+	from {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 /* ----- FILTRE ----- */

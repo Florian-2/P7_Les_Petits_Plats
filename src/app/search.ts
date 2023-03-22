@@ -36,12 +36,14 @@ export class SearchRecipes {
         this.recipesInstance.createRecipesList();
         this.searchBarEvent();
         this.filterEvent();
+        this.tagEvent();
     }
 
     render(recipes: TypeRecipe[]) {
         this.recipesInstance.createRecipesList(recipes);
         const keywords = this.recipesInstance.initKeywordsList(recipes);
         this.updateKeywordsList(keywords);
+        this.tagEvent();
     }
 
     private searchBarEvent() {
@@ -66,6 +68,16 @@ export class SearchRecipes {
 		});
     }
 
+    tagEvent() {
+        const ingredientsLi = this.ingredientsInstance.filterEl.querySelectorAll(".filter-list__item");
+        const appliancesLi = this.appliancesInstance.filterEl.querySelectorAll(".filter-list__item");
+        const ustensilsLi = this.ustensilsInstance.filterEl.querySelectorAll(".filter-list__item");
+
+        ingredientsLi.forEach((li) => li.addEventListener("click", (e) => this.addTagEvent(e)));
+        appliancesLi.forEach((li) => li.addEventListener("click", (e) => this.addTagEvent(e)));
+        ustensilsLi.forEach((li) => li.addEventListener("click", (e) => this.addTagEvent(e)));
+    }
+
     updateKeywordsList(recipes: { ingredients: string[], appliances: string[], ustensils: string[] }) {
         this.ingredientsInstance.createKeywordsList(recipes.ingredients);
         this.appliancesInstance.createKeywordsList(recipes.appliances);
@@ -84,6 +96,24 @@ export class SearchRecipes {
             result = this.recipesInstance.recipesList;
         }
 
+        if (this.tagsInstance.tags.length > 0) {
+            this.tagsInstance.tags.forEach((tag) => {
+                switch (tag.category) {
+                    case "ingredients":
+                        result = this.searchIngredient(tag.value, result);
+                        break;
+                    case "appliances":
+                        result = this.searchAppliance(tag.value, result);
+                        break;
+                    case "ustensils":
+                        result = this.searchUstensil(tag.value, result);
+                        break;
+                }
+            })
+        }
+
+        result = Array.from(new Set(result));
+
         this.render(result);
     }
 
@@ -93,5 +123,32 @@ export class SearchRecipes {
 
     searchDescription(searchBarValue: string): TypeRecipe[] {
         return this.recipesInstance.recipesList.filter((recipe) => formatStr(recipe.description).includes(searchBarValue));
+    }
+
+    searchIngredient(searchValue: string, recipes: TypeRecipe[]): TypeRecipe[] {
+        return recipes.filter((recipe) => {
+            return recipe.ingredients.some((ing) => formatStr(ing.ingredient) === formatStr(searchValue));
+        });
+    }
+
+    searchAppliance(searchValue: string, recipes: TypeRecipe[]) {
+        return recipes.filter((recipe) => formatStr(recipe.appliance) === formatStr(searchValue));
+    }
+
+    searchUstensil(searchValue: string, recipes: TypeRecipe[]): TypeRecipe[] {
+        return recipes.filter((recipe) => recipe.ustensils.includes(searchValue));
+    }
+
+    addTagEvent(e: Event) {
+        const li = e.target as HTMLLIElement;
+        const tagEl = this.tagsInstance.addTag(li);
+        tagEl.querySelector("button")?.addEventListener("click", (e) => this.removeTagEvent(e));
+        this.search();
+    }
+
+    removeTagEvent(e: Event) {
+        const id = (e.target as HTMLButtonElement).dataset.id;
+        id && this.tagsInstance.removeTag(id);
+        this.search();
     }
 }
