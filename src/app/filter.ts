@@ -33,9 +33,6 @@ export class Filter {
         this.searchBarEvent();
     }
 
-    /**
-     * Ajoute un événement "keyup" sur les 3 inputs pour permettre la recherche d'ingrédients, d'appareils et d'ustensiles
-     */
     searchBarEvent() {
         this.filterInuputEl.addEventListener("input", this.searchKeyWords);
     }

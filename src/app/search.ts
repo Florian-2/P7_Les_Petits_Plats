@@ -7,10 +7,10 @@ import { Filter } from './filter';
 
 export class SearchRecipes {
     private recipesInstance: Recipes;
-    public tagsInstance: Tag;
-    public ingredientsInstance: Filter;
-    public appliancesInstance: Filter;
-    public ustensilsInstance: Filter;
+    private tagsInstance: Tag;
+    private ingredientsInstance: Filter;
+    private appliancesInstance: Filter;
+    private ustensilsInstance: Filter;
     private inputSearch: HTMLInputElement;
 
     constructor(recipes: TypeRecipe[]) {
@@ -50,7 +50,7 @@ export class SearchRecipes {
         this.inputSearch.addEventListener("input", () => this.search());
     }
 
-    filterEvent() {
+    private filterEvent() {
         this.ingredientsInstance.filterButtonEl.addEventListener("click", (event) => {
 			this.appliancesInstance.closeFilter();
 			this.ustensilsInstance.closeFilter();
@@ -68,7 +68,7 @@ export class SearchRecipes {
 		});
     }
 
-    tagEvent() {
+    private tagEvent() {
         const ingredientsLi = this.ingredientsInstance.filterEl.querySelectorAll(".filter-list__item");
         const appliancesLi = this.appliancesInstance.filterEl.querySelectorAll(".filter-list__item");
         const ustensilsLi = this.ustensilsInstance.filterEl.querySelectorAll(".filter-list__item");
@@ -78,13 +78,13 @@ export class SearchRecipes {
         ustensilsLi.forEach((li) => li.addEventListener("click", (e) => this.addTagEvent(e)));
     }
 
-    updateKeywordsList(recipes: { ingredients: string[], appliances: string[], ustensils: string[] }) {
+    private updateKeywordsList(recipes: { ingredients: string[], appliances: string[], ustensils: string[] }) {
         this.ingredientsInstance.createKeywordsList(recipes.ingredients);
         this.appliancesInstance.createKeywordsList(recipes.appliances);
         this.ustensilsInstance.createKeywordsList(recipes.ustensils);
     }
 
-    search() {
+    private search() {
         let result: TypeRecipe[] = [];
         const inputValue = formatStr(this.inputSearch.value);
 
@@ -117,36 +117,79 @@ export class SearchRecipes {
         this.render(result);
     }
 
-    searchTitle(searchBarValue: string): TypeRecipe[] {
-        return this.recipesInstance.recipesList.filter((recipe) => formatStr(recipe.name).includes(searchBarValue));
+    private searchTitle(searchBarValue: string): TypeRecipe[] {
+        const recipes = this.recipesInstance.recipesList;
+        const result: TypeRecipe[] = [];
+
+        for (const recipe of recipes) {
+            if (formatStr(recipe.name).includes(searchBarValue)) {
+                result.push(recipe);
+            }
+        }
+
+        return result;
     }
 
-    searchDescription(searchBarValue: string): TypeRecipe[] {
-        return this.recipesInstance.recipesList.filter((recipe) => formatStr(recipe.description).includes(searchBarValue));
+    private searchDescription(searchBarValue: string): TypeRecipe[] {
+        const recipes = this.recipesInstance.recipesList;
+        const result: TypeRecipe[] = [];
+
+        for (const recipe of recipes) {
+            if (formatStr(recipe.description).includes(searchBarValue)) {
+                result.push(recipe);
+            }
+        }
+
+        return result;
     }
 
-    searchIngredient(searchValue: string, recipes: TypeRecipe[]): TypeRecipe[] {
-        return recipes.filter((recipe) => {
-            return recipe.ingredients.some((ing) => formatStr(ing.ingredient) === formatStr(searchValue));
-        });
+    private searchIngredient(searchValue: string, recipes: TypeRecipe[]): TypeRecipe[] {
+        const result: TypeRecipe[] = [];
+
+        for (const recipe of recipes) {
+            for (const ing of recipe.ingredients) {
+                if (formatStr(ing.ingredient) === formatStr(searchValue)) {
+                    result.push(recipe);
+                    break; // Stop la seconde boucle for-of une fois que l'ingrédient a été trouvé dans la liste
+                }
+            }
+        }
+
+        return result;
     }
 
-    searchAppliance(searchValue: string, recipes: TypeRecipe[]) {
-        return recipes.filter((recipe) => formatStr(recipe.appliance) === formatStr(searchValue));
+    private searchAppliance(searchValue: string, recipes: TypeRecipe[]) {
+        const result: TypeRecipe[] = [];
+
+        for (const recipe of recipes) {
+            if (formatStr(recipe.appliance) === formatStr(searchValue)) {
+                result.push(recipe);
+            }
+        }
+
+        return result;
     }
 
-    searchUstensil(searchValue: string, recipes: TypeRecipe[]): TypeRecipe[] {
-        return recipes.filter((recipe) => recipe.ustensils.includes(searchValue));
+    private searchUstensil(searchValue: string, recipes: TypeRecipe[]): TypeRecipe[] {
+        const result: TypeRecipe[] = [];
+
+        for (const recipe of recipes) {
+            if (recipe.ustensils.includes(searchValue)) {
+                result.push(recipe);
+            }
+        }
+
+        return result;
     }
 
-    addTagEvent(e: Event) {
+    private addTagEvent(e: Event) {
         const li = e.target as HTMLLIElement;
         const tagEl = this.tagsInstance.addTag(li);
         tagEl.querySelector("button")?.addEventListener("click", (e) => this.removeTagEvent(e));
         this.search();
     }
 
-    removeTagEvent(e: Event) {
+    private removeTagEvent(e: Event) {
         const id = (e.target as HTMLButtonElement).dataset.id;
         id && this.tagsInstance.removeTag(id);
         this.search();
