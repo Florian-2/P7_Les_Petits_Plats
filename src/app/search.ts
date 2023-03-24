@@ -51,20 +51,20 @@ export class SearchRecipes {
     }
 
     private filterEvent() {
-        this.ingredientsInstance.filterButtonEl.addEventListener("click", (event) => {
+        this.ingredientsInstance.filterButtonEl.addEventListener("click", (e) => {
 			this.appliancesInstance.closeFilter();
 			this.ustensilsInstance.closeFilter();
-			this.ingredientsInstance.expandFilter(event);
+			this.ingredientsInstance.expandFilter(e);
 		});
-		this.appliancesInstance.filterButtonEl.addEventListener("click", (event) => {
+		this.appliancesInstance.filterButtonEl.addEventListener("click", (e) => {
 			this.ingredientsInstance.closeFilter();
 			this.ustensilsInstance.closeFilter();
-			this.appliancesInstance.expandFilter(event);
+			this.appliancesInstance.expandFilter(e);
 		});
-		this.ustensilsInstance.filterButtonEl.addEventListener("click", (event) => {
+		this.ustensilsInstance.filterButtonEl.addEventListener("click", (e) => {
 			this.ingredientsInstance.closeFilter();
 			this.appliancesInstance.closeFilter();
-			this.ustensilsInstance.expandFilter(event);
+			this.ustensilsInstance.expandFilter(e);
 		});
     }
 
