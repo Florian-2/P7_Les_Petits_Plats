@@ -185,8 +185,10 @@ export class SearchRecipes {
     private addTagEvent(e: Event) {
         const li = e.target as HTMLLIElement;
         const tagEl = this.tagsInstance.addTag(li);
-        tagEl.querySelector("button")?.addEventListener("click", (e) => this.removeTagEvent(e));
-        this.search();
+        if (tagEl) {
+            tagEl.querySelector("button")?.addEventListener("click", (e) => this.removeTagEvent(e));
+            this.search();
+        }
     }
 
     private removeTagEvent(e: Event) {
