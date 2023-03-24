@@ -19,18 +19,21 @@ export class Tag {
         this.removeTag = this.removeTag.bind(this);
     }
 
-    addTag(li: HTMLLIElement): HTMLDivElement {
+    addTag(li: HTMLLIElement): Element | null {
         const category = li.dataset.label || "";
         const value = li.textContent || "";
         const color = li.dataset.color || "" as keyof typeof Colors;
-        const tag = { id: crypto.randomUUID(), value, category, color };
+        const newTag = { id: crypto.randomUUID(), value, category, color };
 
-        this.tags.push(tag);
+        // Si le tag existe déjà on arrête là
+        const tag = this.tags.some((tag) => tag.value === value);
+        if (tag) return null;
 
-        const tagHtml = this.createTagHTML(tag);
+        this.tags.push(newTag);
+        const tagHtml = this.createTagHTML(newTag);
         this.sectionTag.insertAdjacentHTML("beforeend", tagHtml);
 
-        return this.sectionTag.lastElementChild as HTMLDivElement;
+        return this.sectionTag.lastElementChild;
     }
 
     removeTag(id: string) {
