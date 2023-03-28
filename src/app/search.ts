@@ -97,7 +97,7 @@ export class SearchRecipes {
         }
 
         if (this.tagsInstance.tags.length > 0) {
-            this.tagsInstance.tags.forEach((tag) => {
+            for (const tag of this.tagsInstance.tags) {
                 switch (tag.category) {
                     case "ingredients":
                         result = this.searchIngredient(tag.value, result);
@@ -109,7 +109,7 @@ export class SearchRecipes {
                         result = this.searchUstensil(tag.value, result);
                         break;
                 }
-            })
+            }
         }
 
         result = Array.from(new Set(result));
