@@ -1,6 +1,6 @@
 import { TypeRecipe } from "../shared/interfaces";
 
-export async function fetchRecipes(url = "src/data/recipes.json"): Promise<TypeRecipe[]> {
+export async function fetchRecipes(url = "recipes.json"): Promise<TypeRecipe[]> {
     const res = await fetch(url);
 
     if (!res.ok) {
