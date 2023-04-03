@@ -246,8 +246,11 @@ main {
 }
 
 /* ----- RECETTE ----- */
+.number-result {
+	font-size: 1.5rem;
+}
+
 .recipes-section {
-	margin-top: 1.5rem;
 	display: grid;
     grid-template-columns: repeat(3, minmax(300px, 1fr));
     gap: 30px;

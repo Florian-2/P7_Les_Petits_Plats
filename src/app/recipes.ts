@@ -7,6 +7,7 @@ export class Recipes {
     public appliancesList: string[];
     public ustensilsList: string[];
     public noResultEl: HTMLHeadingElement;
+    public nbResult: HTMLDivElement;
 
     constructor(recipesList: TypeRecipe[]) {
         this.recipesList = recipesList.sort((a, b) => a.name.localeCompare(b.name));
@@ -14,6 +15,7 @@ export class Recipes {
         this.appliancesList = [];
         this.ustensilsList = [];
         this.noResultEl = this.noResult();
+        this.nbResult = this.createCountResult(recipesList.length);
 
         this.initKeywordsList();
     }
@@ -48,9 +50,11 @@ export class Recipes {
 
         if (list.length === 0) {
             section.innerHTML = "";
+            this.nbResult.innerHTML = "";
             return section.append(this.noResultEl);
         }
 
+        this.createCountResult(list.length);
         section.innerHTML = list.join("");
     }
 
@@ -87,6 +91,17 @@ export class Recipes {
             </article>
         `;
         return content;
+    }
+
+    createCountResult(result: number) {
+        const p = document.createElement("p");
+        p.textContent = `${result} résultat${result > 1 ? "s" : ""}`;
+
+        const div = document.querySelector(".number-result") as HTMLDivElement;
+        div.innerHTML = "";
+        div.append(p);
+
+        return div;
     }
 
     noResult() {
